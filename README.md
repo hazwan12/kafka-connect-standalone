@@ -62,10 +62,14 @@ kubectl create secret generic kafka-client-config-secure --from-file=kafka.prope
 ```
 
 ## Deploy Connect and Control Center
+```
 kubectl apply -f confluent-platform.yaml
+```
 
 ## Teardown
+```
 kubectl delete -f confluent-platform.yaml
 kubectl delete secrets cloud-plain control-center-user kafka-client-config-secure
 kubectl delete secret ca-pair-sslcerts
 helm delete operator
+```
