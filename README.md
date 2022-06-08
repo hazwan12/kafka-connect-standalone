@@ -1,6 +1,13 @@
+# Kafka Connect On Prem
 
-## Install Kubectl
-```
+## About The Project
+This repo 
+
+## Getting Started
+
+### Prerequisites
+- kubectl
+```sh
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -8,9 +15,8 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update
 sudo apt-get install -y kubectl
 ```
-
-## Install Helm
-```
+- helm
+```sh
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 sudo apt-get install apt-transport-https --yes
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
@@ -18,55 +24,46 @@ sudo apt-get update
 sudo apt-get install helm
 ```
 
-## Install GCloud
-```
-sudo apt-get install apt-transport-https ca-certificates gnupg
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-sudo apt-get update && sudo apt-get install google-cloud-cli
-```
+### Installation
+Below is an example on how to install the Confluent Kafka Connect and Control Center on a Kubernetes environment
 
-## Setup GCloud
-```
-gcloud init --no-launch-browser
-```
-
-## Create Namespace and Set
-```
+1. Create a Namespace in Kubernetes
+```sh
 kubectl create namespace confluent
+```
+3. Set default Namespace to the one created in step 1
+```sh
 kubectl config set-context --current --namespace confluent
 ```
-
-## Install Confluent Operator
-```
+5. Install Confluent Operator
+```sh
 helm repo add confluentinc https://packages.confluent.io/helm
 helm repo update
 helm upgrade --install operator confluentinc/confluent-for-kubernetes
 ```
-
-## Generate SSL
-```
+6. Generate SSL Certificates
+```sh
 openssl genrsa -out ca-key.pem 2048
 openssl req -new -key ca-key.pem -x509 \
   -days 1000 \
   -out ca.pem \
   -subj "/C=US/ST=CA/L=MountainView/O=Confluent/OU=Operator/CN=TestCA"
 ```
-
-## Generate Secrets from SSL
-```
+7. Create Kubernetes Secrets from SSL 
+```sh
 kubectl create secret tls ca-pair-sslcerts --cert=ca.pem --key=ca-key.pem
 kubectl create secret generic cloud-plain --from-file=plain.txt=creds-client-kafka-sasl-user.txt
 kubectl create secret generic control-center-user --from-file=basic.txt=creds-control-center-users.txt
 kubectl create secret generic kafka-client-config-secure --from-file=kafka.properties -n confluent
 ```
-
-## Deploy Connect and Control Center
-```
+8. Deploy Kafka Connect and Control Center
+```sh
 kubectl apply -f confluent-platform.yaml
 ```
+9. Verify Installation
 
-## Teardown
+
+### Teardown
 ```
 kubectl delete -f confluent-platform.yaml
 kubectl delete secrets cloud-plain control-center-user kafka-client-config-secure
