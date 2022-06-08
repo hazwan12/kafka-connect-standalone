@@ -41,7 +41,7 @@ kubectl config set-context --current --namespace confluent
 ```
 helm repo add confluentinc https://packages.confluent.io/helm
 helm repo update
-helm upgrade --install confluent-operator confluentinc/confluent-for-kubernetes
+helm upgrade --install operator confluentinc/confluent-for-kubernetes
 ```
 
 ## Generate SSL
@@ -63,3 +63,9 @@ kubectl create secret generic kafka-client-config-secure --from-file=kafka.prope
 
 ## Deploy Connect and Control Center
 kubectl apply -f confluent-platform.yaml
+
+## Teardown
+kubectl delete -f confluent-platform.yaml
+kubectl delete secrets cloud-plain control-center-user kafka-client-config-secure
+kubectl delete secret ca-pair-sslcerts
+helm delete operator
