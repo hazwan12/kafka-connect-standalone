@@ -1,2 +1,2 @@
-username=RDCE2Q4HCZFX6K44
-password=CLH5YgDHM8dHInkjfj+yEe99OWxw4hxd1/jztj6CFztbO2a+6whOXYHJF2oolm6D
+username=<api-key>
+password=<api-secret>
