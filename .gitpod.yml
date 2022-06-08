@@ -1,2 +1,5 @@
+tasks:
+  - init: Gcloud Login
+    command: gcloud init --no-launch-browser
 image:
   file: .gitpod.Dockerfile
