@@ -76,8 +76,19 @@ kubectl create secret generic control-center-user --from-file=basic.txt=creds-co
 kubectl create secret generic kafka-client-config-secure --from-file=kafka.properties -n confluent
 ```
 
-8. Replace the `<cloudKafka_url>` in the `confluent-platform.yaml` file with the Cloud Cluster URL
-
+8. Replace the `<cloudKafka_url>` in the `confluent-platform.yaml` file with the Cloud Cluster URL for both Connect and Control Center
+```
+  dependencies:
+    kafka:
+      bootstrapEndpoint: <cloudKafka_url>:9092
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: cloud-plain
+      tls:
+        enabled: true
+        ignoreTrustStoreConfig: true 
+```
 9. Deploy Kafka Connect and Control Center
 ```sh
 kubectl apply -f confluent-platform.yaml
