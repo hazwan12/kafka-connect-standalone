@@ -21,8 +21,11 @@ curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 sudo apt-get update && sudo apt-get install helm
 ```
+- Confluent Cluster
+https://docs.confluent.io/cloud/current/clusters/create-cluster.html
 
 - Confluent Cluster API Key
+https://docs.confluent.io/cloud/current/access-management/authenticate/api-keys/api-keys.html#create-a-resource-specific-api-key
 
 ### Installation
 Below steps on installing the Confluent Kafka Connect and Control Center on a Kubernetes environment
