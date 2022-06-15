@@ -14,24 +14,26 @@ replicaCount: 1
 #   # Overrides the image tag whose default is the chart appVersion.
 #   tag: ""
 
-controlCenterImage:
-  repository: confluentinc/cp-enterprise-control-center
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "7.1.0"
+controlCenter:
+  image:
+    repository: confluentinc/cp-enterprise-control-center
+    tag: "7.1.0"
+    pullPolicy: IfNotPresent
+  initImage:
+    repository: confluentinc/confluent-init-container
+    tag: "2.3.0"
+  replicaCount: 1
 
-connectImage:
-  repository: confluentinc/cp-server-connect
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "7.1.0"
+connect:
+  image:
+    repository: confluentinc/cp-server-connect
+    tag: "7.1.0"
+    pullPolicy: IfNotPresent
+  initImage:
+    repository: confluentinc/confluent-init-container
+    tag: "2.3.0"
+  replicaCount: 1
 
-initImage:
-  repository: confluentinc/confluent-init-container
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "2.3.0"
-  
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

@@ -4,11 +4,11 @@ metadata:
   name: controlcenter
   namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.controlCenter.replicaCount }}
+  imagePullPolicy: {{ .Values.controlCenter.image.pullPolicy }}
   image:
-    imagePullPolicy: {{ .Values.controlCenterImage.pullPolicy }}
-    application: "{{ .Values.controlCenterImage.repository }}:{{ .Values.controlCenterImage.tag }}"
-    init: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+    application: "{{ .Values.controlCenter.image.repository }}:{{ .Values.controlCenter.image.tag }}"
+    init: "{{ .Values.controlCenter.initImage.repository }}:{{ .Values.controlCenter.initImage.tag }}"
   dataVolumeCapacity: 10Gi
   authentication:
     type: basic
