@@ -26,6 +26,14 @@ connect:
     tag: "2.3.0"
   replicaCount: 1
 
+
+secrets:
+  kafkaProperties:
+    name: "kafka-client-config-secure"
+  kafkaBrokerUser:
+    name: cloud-plain
+    type: plain
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
