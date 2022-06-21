@@ -29,7 +29,7 @@ connect:
 
 secrets:
   kafkaProperties:
-    name: "kafka-client-config-secure"
+    name: kafka-client-config-secure
   kafkaBrokerUser:
     name: cloud-plain
     type: plain
