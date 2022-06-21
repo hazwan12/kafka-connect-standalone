@@ -1,4 +1,4 @@
 tasks:
-  - command: gcloud init --no-launch-browser
+  - command: echo "Hello World"
 image:
   file: .gitpod.Dockerfile
