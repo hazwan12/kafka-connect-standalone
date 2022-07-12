@@ -16,7 +16,7 @@ spec:
     kafka:
       bootstrapEndpoint: "{{ .Values.cloudKafkaURL }}:{{ .Values.cloudKafkaPort }}"
       authentication:
-        type: {{ .Values.secrets.kafkaBrokerUser.type }}
+        type: plain
         jaasConfig:
           secretRef: {{ .Values.secrets.kafkaBrokerUser.name }}
       tls:

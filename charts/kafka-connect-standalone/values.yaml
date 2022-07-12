@@ -32,7 +32,8 @@ secrets:
     name: kafka-client-config-secure
   kafkaBrokerUser:
     name: cloud-plain
-    type: plain
+  kafkaUserList:
+    name: control-center-user
 
 imagePullSecrets: []
 nameOverride: ""
